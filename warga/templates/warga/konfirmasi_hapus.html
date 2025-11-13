@@ -1,0 +1,11 @@
+<h2>Konfirmasi Hapus Warga</h2>
+
+<p>Apakah kamu yakin ingin menghapus <b>{{ warga.nama_lengkap }}</b>?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Ya, Hapus</button>
+</form>
+
+<hr>
+<a href="{% url 'warga_detail' pk=warga.pk %}">⬅ Batal</a>

@@ -1,29 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Warga Kelurahan</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 5px; }
-        a { color: #0066cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-    <h1>Daftar Warga Kelurahan</h1>
-    <ul>
-        {% for warga in object_list %}
-            <li>
-                <a href="{% url 'warga-detail' warga.pk %}">
-                    {{ warga.nama_lengkap }} - NIK: {{ warga.nik }}
-                </a>
-                <br>
-                <small>{{ warga.alamat }} | {{ warga.no_telepon|default:"-" }}</small>
-            </li>
-        {% empty %}
-            <li>Belum ada data warga yang terdaftar.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+<h1>Daftar Warga</h1>
+
+{% if warga %}
+  <ul>
+    {% for w in warga %}
+      <li>
+        <a href="{% url 'warga_detail' w.id %}">{{ w.nama_lengkap }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Belum ada data warga.</p>
+{% endif %}
+
+<hr>
+<a href="{% url 'tambah_warga' %}">➕ Tambah Warga Baru</a><br>
+<a href="{% url 'tambah_pengaduan' %}">📢 Tambah Pengaduan Baru</a>
+

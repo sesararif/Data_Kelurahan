@@ -1,0 +1,16 @@
+<h2>Tambah Warga Baru</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label>Nama Lengkap:</label><br>
+  <input type="text" name="nama_lengkap" required><br><br>
+
+  <label>Alamat:</label><br>
+  <textarea name="alamat" required></textarea><br><br>
+
+  <label>Tanggal Lahir:</label><br>
+  <input type="date" name="tanggal_lahir"><br><br>
+
+  <button type="submit">Simpan</button>
+</form>
+
+<a href="{% url 'warga_list' %}">⬅ Kembali</a>

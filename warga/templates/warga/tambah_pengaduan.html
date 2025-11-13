@@ -1,0 +1,17 @@
+<h2>Tambah Pengaduan Baru</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label>Warga:</label><br>
+  <select name="warga" required>
+    {% for w in warga %}
+      <option value="{{ w.id }}">{{ w.nama_lengkap }}</option>
+    {% endfor %}
+  </select><br><br>
+
+  <label>Isi Pengaduan:</label><br>
+  <textarea name="isi_pengaduan" required></textarea><br><br>
+
+  <button type="submit">Kirim Pengaduan</button>
+</form>
+
+<a href="{% url 'warga_list' %}">⬅ Kembali</a>

@@ -1,0 +1,18 @@
+<h2>Edit Data Warga</h2>
+
+<form method="post">
+  {% csrf_token %}
+  <label>Nama Lengkap:</label><br>
+  <input type="text" name="nama_lengkap" value="{{ warga.nama_lengkap }}" required><br><br>
+
+  <label>Alamat:</label><br>
+  <textarea name="alamat" required>{{ warga.alamat }}</textarea><br><br>
+
+  <label>Tanggal Lahir:</label><br>
+  <input type="date" name="tanggal_lahir" value="{{ warga.tanggal_lahir|date:'Y-m-d' }}"><br><br>
+
+  <button type="submit">Simpan Perubahan</button>
+</form>
+
+<hr>
+<a href="{% url 'warga_detail' pk=warga.pk %}">⬅ Kembali</a>
