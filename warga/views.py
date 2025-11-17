@@ -159,3 +159,11 @@ class PengaduanViewSet(viewsets.ModelViewSet):
     queryset = Pengaduan.objects.all()
     serializer_class = PengaduanSerializer
     permission_classes = [IsAdminUser]
+
+def warga_list_page(request):
+    warga = Warga.objects.all().order_by('id')
+    return render(request, 'warga/warga_list_page.html', {'warga': warga})
+
+def warga_page(request):
+    return render(request, "warga/index.html")
+

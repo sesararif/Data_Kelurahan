@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Warga</title>
+</head>
+<body>
+
+    <h1>Data Warga Kelurahan</h1>
+
+    <h2>Tambah Warga Baru</h2>
+
+    <form id="formWarga">
+        <label>NIK:</label><br>
+        <input type="text" id="nik" required><br><br>
+
+        <label>Nama Lengkap:</label><br>
+        <input type="text" id="nama_lengkap" required><br><br>
+
+        <label>Alamat:</label><br>
+        <input type="text" id="alamat" required><br><br>
+
+        <label>No Telepon:</label><br>
+        <input type="text" id="no_telepon" required><br><br>
+
+        <button type="submit">Simpan</button>
+    </form>
+
+    <hr>
+
+    <h2>Daftar Warga</h2>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>NIK</th>
+                <th>Nama Lengkap</th>
+                <th>Alamat</th>
+                <th>No Telepon</th>
+            </tr>
+        </thead>
+        <tbody id="wargaTableBody"></tbody>
+    </table>
+
+<script>
+
+const apiUrl = "http://127.0.0.1:8000/api/warga/";
+
+// ======================================================
+// 1. FUNGSI GET → Ambil semua warga dari API
+// ======================================================
+function loadWarga() {
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.getElementById("wargaTableBody");
+            tbody.innerHTML = "";
+
+            data.forEach(w => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${w.nik}</td>
+                        <td>${w.nama_lengkap}</td>
+                        <td>${w.alamat}</td>
+                        <td>${w.no_telepon}</td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+// ======================================================
+// 2. FORM SUBMIT → POST data ke API
+// ======================================================
+const form = document.getElementById("formWarga");
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault(); // supaya tidak reload
+
+    const data = {
+        nik: document.getElementById("nik").value,
+        nama_lengkap: document.getElementById("nama_lengkap").value,
+        alamat: document.getElementById("alamat").value,
+        no_telepon: document.getElementById("no_telepon").value,
+    };
+
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            // Jika pakai token:
+            // "Authorization": "Token YOURTOKEN"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Gagal menyimpan data!");
+        return response.json();
+    })
+    .then(result => {
+        alert("Warga berhasil ditambahkan!");
+        form.reset();
+        loadWarga();
+    })
+    .catch(error => {
+        alert("Error: " + error);
+    });
+});
+
+// load data pertama kali
+loadWarga();
+
+</script>
+
+</body>
+</html>

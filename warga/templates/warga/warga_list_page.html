@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Warga</title>
+</head>
+<body>
+    <h1>Daftar Warga</h1>
+
+    <table border="1">
+        <tr>
+            <th>Nama</th>
+            <th>NIK</th>
+            <th>Alamat</th>
+        </tr>
+
+        {% for w in warga %}
+        <tr>
+            <td>{{ w.nama }}</td>
+            <td>{{ w.nik }}</td>
+            <td>{{ w.alamat }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
