@@ -5,7 +5,8 @@ from django.utils import timezone
 import json
 from .models import Warga, Pengaduan
 from rest_framework import viewsets
-from .serializers import WargaSerializer
+from .serializers import WargaSerializer, PengaduanSerializer
+from rest_framework.permissions import IsAdminUser
 
 # ================================
 #   VIEW BIASA (HTML)
@@ -143,3 +144,8 @@ def api_warga_detail(request, pk):
 class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all()
     serializer_class = WargaSerializer
+
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all()
+    serializer_class = PengaduanSerializer
+    permission_classes = [IsAdminUser]

@@ -4,6 +4,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import WargaViewSet
 from django.contrib import admin
+from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
 router.register(r'warga', WargaViewSet, basename='warga')
@@ -22,6 +23,7 @@ urlpatterns = [
     path('api/<int:pk>/', views.api_warga_detail, name='api_warga_detail'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/token/', obtain_auth_token),
 ]
 
 
