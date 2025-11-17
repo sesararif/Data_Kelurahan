@@ -8,6 +8,7 @@ urlpatterns = [
     path('pengaduan/', views.tambah_pengaduan, name='tambah_pengaduan'),
     path('<int:pk>/edit/', views.edit_warga, name='edit_warga'),
     path('<int:pk>/hapus/', views.hapus_warga, name='hapus_warga'),
+    path('api/', views.api_warga, name='api_warga'),
 ]
 
 

@@ -74,3 +74,12 @@ def hapus_warga(request, pk):
         return redirect('warga_list')
 
     return render(request, 'warga/konfirmasi_hapus.html', {'warga': warga})
+
+# === 7. API: Ambil daftar semua warga dalam bentuk JSON ===
+from django.http import JsonResponse
+
+def api_warga(request):
+    warga_list = Warga.objects.all().values('id', 'nama_lengkap', 'alamat', 'tanggal_lahir')
+    return JsonResponse(list(warga_list), safe=False)
+
+
