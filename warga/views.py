@@ -7,6 +7,9 @@ from .models import Warga, Pengaduan
 from rest_framework import viewsets
 from .serializers import WargaSerializer, PengaduanSerializer
 from rest_framework.permissions import IsAdminUser
+from rest_framework import viewsets, filters
+from .models import Warga
+from .serializers import WargaSerializer
 
 # ================================
 #   VIEW BIASA (HTML)
@@ -144,6 +147,13 @@ def api_warga_detail(request, pk):
 class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all()
     serializer_class = WargaSerializer
+
+    # 🔎 Searching
+    search_fields = ['nama_lengkap', 'alamat', 'tanggal_lahir']
+
+    # ↕ Ordering
+    ordering_fields = ['id', 'nama_lengkap', 'tanggal_lahir']
+    ordering = ['id']  # default urutan
 
 class PengaduanViewSet(viewsets.ModelViewSet):
     queryset = Pengaduan.objects.all()
